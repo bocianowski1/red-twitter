@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("https://fonts.googleapis.com/css?family=Muli&display=swap");
+
+h2 {
+  /* font-family: "Tilt Prisma" sans-serif;
+      font-family: 'Anton', sans-serif; */
+
+  /* font-family: "Tilt Prism", sans-serif; */
+
+  font-family: "Muli", sans-serif;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+}
