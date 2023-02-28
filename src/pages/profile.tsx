@@ -1,19 +1,19 @@
 import { useSession, signOut } from "next-auth/react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import ProfileImage from "~/components/utils/profile-image";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
 import Link from "next/link";
-import { useSiteContext } from "~/context/site-context";
+// import { useSiteContext } from "~/context/site-context";
 
 const Profile = () => {
   const { data } = useSession();
   const user = data?.user;
-  const { setActiveSection } = useSiteContext();
+  // const { setActiveSection } = useSiteContext();
 
-  useEffect(() => {
-    setActiveSection("");
-  }, []);
+  // useEffect(() => {
+  //   setActiveSection("");
+  // }, []);
 
   return (
     <>

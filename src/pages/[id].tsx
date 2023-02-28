@@ -1,10 +1,9 @@
-import { Comment, Post } from "@prisma/client";
+import { Comment } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { FaComment, FaPaperPlane, FaPen, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import CommentCard from "~/components/comments/comment";
-import EditPostForm from "~/components/posts/edit-post";
 import Header from "~/components/layout/header";
 import Loading from "~/components/utils/loading";
 import ProfileImage from "~/components/utils/profile-image";

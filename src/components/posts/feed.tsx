@@ -7,16 +7,16 @@ import CreatePost from "./create-post";
 import Loading from "../utils/loading";
 import PostCard from "./post-card";
 import Header from "../layout/header";
-import { useSiteContext } from "~/context/site-context";
+// import { useSiteContext } from "~/context/site-context";
 
 const Feed = () => {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
   const { data: posts, refetch: refetchPosts } = api.posts.getAll.useQuery();
-  const { setActiveSection } = useSiteContext();
+  // const { setActiveSection } = useSiteContext();
 
-  useEffect(() => {
-    setActiveSection("feed");
-  }, []);
+  // useEffect(() => {
+  //   setActiveSection("feed");
+  // }, []);
 
   return (
     <>

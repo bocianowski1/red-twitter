@@ -14,13 +14,13 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      <SiteContext>
-        <AnimatePresence>
-          <main className="md:mx-48 lg:mx-72">
-            <Component {...pageProps} />
-          </main>
-        </AnimatePresence>
-      </SiteContext>
+      {/* <SiteContext> */}
+      <AnimatePresence>
+        <main className="md:mx-48 lg:mx-72">
+          <Component {...pageProps} />
+        </main>
+      </AnimatePresence>
+      {/* </SiteContext> */}
     </SessionProvider>
   );
 };

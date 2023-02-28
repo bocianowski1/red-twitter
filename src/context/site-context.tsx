@@ -1,23 +1,22 @@
-import { useState, useContext, createContext, ReactNode } from "react";
+import {
+  useState,
+  useContext,
+  createContext,
+  ReactNode,
+  Dispatch,
+} from "react";
 
-const Context = createContext({} as any);
+interface ContextType {
+  activeSection: string;
+}
+const Context = createContext<ContextType | null>(null);
 
 const SiteContext = ({ children }: { children: ReactNode }) => {
-  const [activeSection, setActiveSection] = useState("home");
-  const [isLiked, setIsLiked] = useState(false);
+  const [activeSection, setActiveSection] = useState<ContextType>({
+    activeSection: "feed",
+  });
 
-  return (
-    <Context.Provider
-      value={{
-        activeSection,
-        setActiveSection,
-        isLiked,
-        setIsLiked,
-      }}
-    >
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={activeSection}>{children}</Context.Provider>;
 };
 
 export const useSiteContext = () => useContext(Context);

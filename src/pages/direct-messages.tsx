@@ -1,12 +1,12 @@
 import { Message } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaPaperPlane, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
 import ChatBubble from "~/components/messages/chat-bubble";
 import ProfileImage from "~/components/utils/profile-image";
-import { useSiteContext } from "~/context/site-context";
+// import { useSiteContext } from "~/context/site-context";
 import { api } from "~/utils/api";
 
 const DirectMessages = () => {
@@ -27,11 +27,11 @@ const DirectMessages = () => {
   const { data } = useSession();
   const user = data?.user;
 
-  const { setActiveSection } = useSiteContext();
+  // const { setActiveSection } = useSiteContext();
 
-  useEffect(() => {
-    setActiveSection("messages");
-  }, []);
+  // useEffect(() => {
+  //   setActiveSection("messages");
+  // }, []);
 
   return (
     <>
