@@ -1,8 +1,8 @@
-import { Post } from "@prisma/client";
+import { type Post } from "@prisma/client";
 import React from "react";
 import Link from "next/link";
-import ProfileImage from "../utils/profile-image";
-import { api } from "~/utils/api";
+// import ProfileImage from "../utils/profile-image";
+// import { api } from "~/utils/api";
 
 const Header = ({
   posts,

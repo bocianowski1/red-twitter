@@ -1,4 +1,4 @@
-import { Comment } from "@prisma/client";
+import { type Comment } from "@prisma/client";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import { FaHeart } from "react-icons/fa";
@@ -39,7 +39,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
           }}
           className="flex items-center gap-2 rounded-full p-2 hover:bg-black/10"
         >
-          <FaHeart className={`${isLiked && "text-rose-400"}`} />
+          <FaHeart className={`${isLiked ? "text-rose-400" : ""}`} />
           <span className="text-sm font-thin">{numberOfLikes}</span>
         </button>
         <span className="text-xs font-thin">{createdAt.toUTCString()}</span>

@@ -1,6 +1,6 @@
-import { Comment } from "@prisma/client";
+import { type Comment } from "@prisma/client";
 import { useRouter } from "next/router";
-import { Context, useState } from "react";
+import { useState } from "react";
 import { FaComment, FaPaperPlane, FaPen, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import CommentCard from "~/components/comments/comment";
@@ -16,7 +16,7 @@ interface Params extends ParsedUrlQuery {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = params as Params;
+  const { id } = (await params) as Params;
 
   return {
     props: {

@@ -1,4 +1,4 @@
-import { Post, User } from "@prisma/client";
+import { type Post, type User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import BottomTabs from "~/components/layout/bottom-tabs";

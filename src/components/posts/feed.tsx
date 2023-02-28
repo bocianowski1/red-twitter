@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client";
+import { type Post } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";

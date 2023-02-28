@@ -1,5 +1,5 @@
-import { Post } from "@prisma/client";
-import React, { useState } from "react";
+import { type Post } from "@prisma/client";
+import { useState } from "react";
 import { api } from "../../utils/api";
 
 const EditPostForm = ({

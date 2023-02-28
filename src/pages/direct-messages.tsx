@@ -1,4 +1,4 @@
-import { Message } from "@prisma/client";
+import { type Message } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { FaPaperPlane, FaTrash } from "react-icons/fa";

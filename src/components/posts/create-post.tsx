@@ -1,4 +1,4 @@
-import { Post } from "@prisma/client";
+// import { Post } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
