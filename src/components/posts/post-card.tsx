@@ -1,6 +1,6 @@
 import { Post, Comment } from "@prisma/client";
 import React, { useState } from "react";
-import { api } from "../utils/api";
+import { api } from "../../utils/api";
 import { useSession } from "next-auth/react";
 import EditPostForm from "./edit-post";
 import {
@@ -10,10 +10,10 @@ import {
   FaComment,
   FaPeopleArrows,
 } from "react-icons/fa";
-import CommentCard from "./comment";
-import ProfileImage from "./profile-image";
+import CommentCard from "../comments/comment";
+import ProfileImage from "../utils/profile-image";
 import Link from "next/link";
-import CommentForm from "./comment-form";
+import CommentForm from "../comments/comment-form";
 
 interface Props {
   post: Post;

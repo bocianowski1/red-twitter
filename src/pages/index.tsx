@@ -3,11 +3,10 @@ import Head from "next/head";
 import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 
-import Feed from "~/components/feed";
-import Login from "~/components/login";
-import BottomTabs from "~/components/bottom-tabs";
-import { FaPlus } from "react-icons/fa";
-import Header from "~/components/header";
+import Feed from "~/components/posts/feed";
+import Login from "~/components/utils/login";
+import BottomTabs from "~/components/layout/bottom-tabs";
+import Header from "~/components/layout/header";
 
 const Home: NextPage = () => {
   const { data: sessionData } = useSession();
@@ -24,7 +23,7 @@ const Home: NextPage = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 0.25 }}
       >
-        {sessionData && <Header />}
+        {sessionData && <Header showStories />}
         {sessionData ? <Feed /> : <Login />}
         {sessionData && <BottomTabs />}
       </motion.section>

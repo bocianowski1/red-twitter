@@ -1,8 +1,8 @@
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import React from "react";
-import ProfileImage from "~/components/profile-image";
-import BottomTabs from "~/components/bottom-tabs";
-import Header from "~/components/header";
+import ProfileImage from "~/components/utils/profile-image";
+import BottomTabs from "~/components/layout/bottom-tabs";
+import Header from "~/components/layout/header";
 import Link from "next/link";
 
 const Profile = () => {
@@ -11,7 +11,7 @@ const Profile = () => {
 
   return (
     <div className=" flex h-screen w-screen items-center justify-center backdrop-blur-sm">
-      <Header />
+      <Header showStories={false} />
 
       <div className="flex h-screen flex-col items-center justify-center gap-8 py-16 text-gray-800">
         <ProfileImage size={10} image={user?.image ?? ""} hasRing={false} />

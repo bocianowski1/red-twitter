@@ -2,8 +2,8 @@ import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { FaPlus, FaPaperPlane } from "react-icons/fa";
-import { api } from "../utils/api";
-import ProfileImage from "./profile-image";
+import { api } from "../../utils/api";
+import ProfileImage from "../utils/profile-image";
 
 const CreatePost = ({
   refetchPosts,

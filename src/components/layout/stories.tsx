@@ -1,6 +1,6 @@
 import { Post } from "@prisma/client";
 import React from "react";
-import ProfileImage from "./profile-image";
+import ProfileImage from "../utils/profile-image";
 
 const Stories = ({ posts }: { posts?: Post[] }) => {
   return (

@@ -4,9 +4,9 @@ import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { api } from "~/utils/api";
 import CreatePost from "./create-post";
-import Loading from "./loading";
+import Loading from "../utils/loading";
 import PostCard from "./post-card";
-import Stories from "./stories";
+import Stories from "../layout/stories";
 
 const Feed = () => {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);

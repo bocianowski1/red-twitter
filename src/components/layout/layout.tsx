@@ -5,7 +5,7 @@ import Header from "./header";
 const Layout = () => {
   return (
     <div>
-      <Header />
+      <Header showStories={false} />
       <BottomTabs />
     </div>
   );

@@ -7,8 +7,8 @@ import { api } from "~/utils/api";
 import "~/styles/globals.css";
 import { AnimatePresence } from "framer-motion";
 import SiteContext from "~/context/site-context";
-import Header from "~/components/header";
-import BottomTabs from "~/components/bottom-tabs";
+import Header from "~/components/layout/header";
+import BottomTabs from "~/components/layout/bottom-tabs";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

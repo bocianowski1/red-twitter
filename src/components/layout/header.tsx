@@ -1,14 +1,14 @@
 import { Post } from "@prisma/client";
 import React from "react";
 import Link from "next/link";
-import ProfileImage from "./profile-image";
+import ProfileImage from "../utils/profile-image";
 import { api } from "~/utils/api";
 
-const Header = () => {
+const Header = ({ showStories }: { showStories: boolean }) => {
   return (
     <div className="fixed top-0 left-0 z-20">
       <Navbar />
-      <Stories />
+      {showStories && <Stories />}
     </div>
   );
 };

@@ -8,7 +8,7 @@ const Login = () => {
       initial={{ y: "-100%", opacity: 0 }}
       animate={{ y: "0%", opacity: 1 }}
       transition={{ duration: 0.75 }}
-      className="mt-12 flex h-screen flex-col items-center gap-8 py-16 text-gray-800"
+      className="flex h-screen flex-col items-center justify-center gap-8 py-16 text-gray-800"
     >
       <ProfileImage size={10} image={""} hasRing={false} />
       <h2 className="text-3xl font-extrabold">Welcome!</h2>

@@ -1,8 +1,8 @@
 import { Message } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import BottomTabs from "~/components/bottom-tabs";
-import Header from "~/components/header";
+import BottomTabs from "~/components/layout/bottom-tabs";
+import Header from "~/components/layout/header";
 import { api } from "~/utils/api";
 
 const DirectMessages = () => {
@@ -24,7 +24,7 @@ const DirectMessages = () => {
 
   return (
     <>
-      <Header />
+      <Header showStories={false} />
       <div className="flex h-screen flex-col items-center justify-center bg-gray-200">
         <h1>Messages</h1>
         <div>

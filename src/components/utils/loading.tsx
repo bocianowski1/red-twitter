@@ -1,12 +1,10 @@
-import React from "react";
-
 const Loading = () => {
   return (
     <div className="flex h-full w-full items-center justify-center">
       <svg
         aria-hidden="true"
         role="status"
-        className="inline h-8 w-8 animate-spin text-sky-400"
+        className="inline h-8 w-8 animate-spin text-rose-400"
         viewBox="0 0 100 101"
         fill="none"
       >
