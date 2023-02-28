@@ -54,7 +54,7 @@ const PostDetails = ({ id }: { id: string }) => {
 
   const deletePost = api.posts.deletePost.useMutation({
     onSuccess: () => {
-      router.push("/");
+      void router.push("/");
     },
   });
 

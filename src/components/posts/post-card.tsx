@@ -78,7 +78,7 @@ const PostCard = ({
                 incrementLikes.mutate({ id, likes: numberOfLikes });
               }}
             >
-              <FaHeart className={`${isLiked && "text-rose-400"}`} />
+              <FaHeart className={`${isLiked ? "text-rose-400" : ""}`} />
               <span className="text-sm font-thin">{numberOfLikes}</span>
             </button>
             <button>

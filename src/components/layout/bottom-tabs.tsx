@@ -12,7 +12,7 @@ const BottomTabs = ({ activeSection }: { activeSection: string }) => {
         <Link href={"/"}>
           <li
             className={`${
-              activeSection === "feed" && "text-rose-600"
+              activeSection === "feed" ? "text-rose-600" : ""
             } py-4 px-8`}
           >
             <FaHome />
@@ -21,7 +21,7 @@ const BottomTabs = ({ activeSection }: { activeSection: string }) => {
         <Link href={"/search"}>
           <li
             className={`${
-              activeSection === "search" && "text-rose-600"
+              activeSection === "search" ? "text-rose-600" : ""
             } py-4 px-8`}
           >
             <FaSearch />
@@ -30,7 +30,7 @@ const BottomTabs = ({ activeSection }: { activeSection: string }) => {
         <Link href={"/direct-messages"}>
           <li
             className={`${
-              activeSection === "messages" && "text-rose-600"
+              activeSection === "messages" ? "text-rose-600" : ""
             } py-4 px-8`}
           >
             <FaComment />
