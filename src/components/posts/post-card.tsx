@@ -12,12 +12,13 @@ import {
 import ProfileImage from "../utils/profile-image";
 import Link from "next/link";
 
-interface Props {
+const PostCard = ({
+  post,
+  refetchPosts,
+}: {
   post: Post;
   refetchPosts: () => void;
-}
-
-const PostCard = ({ post, refetchPosts }: Props) => {
+}) => {
   const [isLiked, setIsLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
 

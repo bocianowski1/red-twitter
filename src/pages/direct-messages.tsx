@@ -36,8 +36,8 @@ const DirectMessages = () => {
   return (
     <>
       <Header showStories={false} />
-      <div className="flex h-screen flex-col items-center justify-end pb-28">
-        <div className="w-2/3">
+      <div className="flex h-screen flex-col items-center justify-end pb-12">
+        <div className="my-4 w-2/3">
           {dms &&
             dms.map((dm: Message) => (
               <div key={dm.id} className="">
@@ -65,10 +65,10 @@ const DirectMessages = () => {
             });
             setMessage("");
           }}
-          className="flex items-center gap-4 py-4"
+          className="flex w-screen items-center justify-center gap-4 border-t-[0.5px] border-black/20 bg-gray-50 py-8"
         >
           <ProfileImage size={2.25} image={user?.image ?? ""} hasRing={false} />
-          <input
+          <textarea
             required
             value={message}
             maxLength={70}

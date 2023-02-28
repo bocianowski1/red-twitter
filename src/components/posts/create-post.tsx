@@ -38,7 +38,13 @@ const CreatePost = ({
   };
 
   return (
-    <div className="relative">
+    <motion.main
+      initial={{ y: "-100%" }}
+      animate={{ y: "0%" }}
+      exit={{ y: "-100%" }}
+      transition={{ duration: 0.25 }}
+      className="relative"
+    >
       <button
         className="absolute top-0 right-0 m-2 rounded-full border
                     border-black/50 bg-gray-200 p-2 text-sm font-semibold shadow-lg 
@@ -56,7 +62,7 @@ const CreatePost = ({
         <div className="mt-1 w-12">
           <ProfileImage size={3} image={user?.image ?? ""} hasRing={true} />
         </div>
-        <div className="mr-8 flex w-full flex-col justify-between">
+        <section className="mr-8 flex w-full flex-col justify-between">
           <div className="flex items-start justify-between">
             <div className="flex w-full flex-col">
               <h2 className="font-bold">{user?.name}</h2>
@@ -79,9 +85,9 @@ const CreatePost = ({
               </div>
             </div>
           </div>
-        </div>
+        </section>
       </form>
-    </div>
+    </motion.main>
   );
 };
 
