@@ -34,7 +34,7 @@ const PostCard = ({
     api.comments.deleteAllCommentsOnPost.useMutation();
 
   const { data } = useSession();
-  const { email, name, image } = data!.user;
+  const user = data?.user;
 
   return (
     <>
@@ -44,13 +44,13 @@ const PostCard = ({
                   transition-all hover:bg-black/10"
       >
         <div className="mt-1 w-12">
-          <ProfileImage size={3} image={image ?? ""} hasRing={true} />
+          <ProfileImage size={3} image={user?.image ?? ""} hasRing={true} />
         </div>
         <div className="mr-8 flex w-full flex-col justify-between">
           <div className="flex items-start justify-between">
             <div className="flex w-full flex-col">
-              <h2 className="font-bold">{name}</h2>
-              <h4 className="text-xs font-thin text-gray-500">{email}</h4>
+              <h2 className="font-bold">{user?.name}</h2>
+              <h4 className="text-xs font-thin text-gray-500">{user?.email}</h4>
               <Link href={`/${id}`} className="h-20 overflow-scroll">
                 <h3 className="py-1 text-sm">{caption}</h3>
               </Link>
