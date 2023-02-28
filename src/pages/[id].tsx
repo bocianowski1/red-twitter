@@ -1,6 +1,6 @@
 import { Comment } from "@prisma/client";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Context, useState } from "react";
 import { FaComment, FaPaperPlane, FaPen, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import CommentCard from "~/components/comments/comment";
@@ -9,7 +9,7 @@ import Loading from "~/components/utils/loading";
 import ProfileImage from "~/components/utils/profile-image";
 import { api } from "~/utils/api";
 
-export const getServerSideProps = async (context: any) => {
+export const getServerSideProps = (context) => {
   const id = context.params.id;
 
   return {
