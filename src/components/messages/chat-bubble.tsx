@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const ChatBubble = ({
   userId,

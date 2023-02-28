@@ -1,7 +1,7 @@
 import { Comment } from "@prisma/client";
-import React, { useState } from "react";
+import { useState } from "react";
 import { api } from "~/utils/api";
-import { FaHeart, FaComment } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const CommentCard = ({ comment }: { comment: Comment }) => {
   const { id, message, likes, createdAt, userId } = comment;

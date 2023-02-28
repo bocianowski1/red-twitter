@@ -1,14 +1,8 @@
-import { Post, Comment } from "@prisma/client";
-import React, { useState } from "react";
+import { Post } from "@prisma/client";
+import { useState } from "react";
 import { api } from "../../utils/api";
 import { useSession } from "next-auth/react";
-import {
-  FaPen,
-  FaTrash,
-  FaHeart,
-  FaComment,
-  FaPeopleArrows,
-} from "react-icons/fa";
+import { FaTrash, FaHeart, FaComment, FaPeopleArrows } from "react-icons/fa";
 import ProfileImage from "../utils/profile-image";
 import Link from "next/link";
 

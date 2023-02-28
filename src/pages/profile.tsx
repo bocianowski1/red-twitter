@@ -1,5 +1,5 @@
 import { useSession, signOut } from "next-auth/react";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import ProfileImage from "~/components/utils/profile-image";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";

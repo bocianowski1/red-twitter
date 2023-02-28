@@ -1,6 +1,5 @@
 import { Post, User } from "@prisma/client";
-import { signOut, useSession } from "next-auth/react";
-import React from "react";
+import { useSession } from "next-auth/react";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
 import { api } from "~/utils/api";
