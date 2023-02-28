@@ -25,7 +25,7 @@ const Home: NextPage = () => {
       >
         {sessionData && <Header showStories />}
         {sessionData ? <Feed /> : <Login />}
-        {sessionData && <BottomTabs />}
+        {sessionData && <BottomTabs activeSection="feed" />}
       </motion.section>
     </>
   );

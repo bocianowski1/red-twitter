@@ -6,7 +6,6 @@ import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
 import ChatBubble from "~/components/messages/chat-bubble";
 import ProfileImage from "~/components/utils/profile-image";
-// import { useSiteContext } from "~/context/site-context";
 import { api } from "~/utils/api";
 
 const DirectMessages = () => {
@@ -26,12 +25,6 @@ const DirectMessages = () => {
 
   const { data } = useSession();
   const user = data?.user;
-
-  // const { setActiveSection } = useSiteContext();
-
-  // useEffect(() => {
-  //   setActiveSection("messages");
-  // }, []);
 
   return (
     <>
@@ -80,7 +73,7 @@ const DirectMessages = () => {
             <FaPaperPlane />
           </button>
         </form>
-        {data && <BottomTabs />}
+        {data && <BottomTabs activeSection="messages" />}
       </div>
     </>
   );

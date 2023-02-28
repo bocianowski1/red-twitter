@@ -1,5 +1,6 @@
 import { Post, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
 import { api } from "~/utils/api";
@@ -22,11 +23,13 @@ const Search = () => {
         {posts &&
           posts.map((post: Post) => (
             <div key={post.id}>
-              <p>{post.caption}</p>
+              <Link href={`/${post.id}`}>
+                <p>{post.caption}</p>
+              </Link>
             </div>
           ))}
       </div>
-      {data && <BottomTabs />}
+      {data && <BottomTabs activeSection="search" />}
     </>
   );
 };

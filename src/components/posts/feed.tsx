@@ -1,22 +1,16 @@
 import { Post } from "@prisma/client";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { api } from "~/utils/api";
 import CreatePost from "./create-post";
 import Loading from "../utils/loading";
 import PostCard from "./post-card";
 import Header from "../layout/header";
-// import { useSiteContext } from "~/context/site-context";
 
 const Feed = () => {
   const [showCreatePostForm, setShowCreatePostForm] = useState(false);
   const { data: posts, refetch: refetchPosts } = api.posts.getAll.useQuery();
-  // const { setActiveSection } = useSiteContext();
-
-  // useEffect(() => {
-  //   setActiveSection("feed");
-  // }, []);
 
   return (
     <>
@@ -27,7 +21,6 @@ const Feed = () => {
                     transition hover:bg-rose-500/80"
         onClick={() => {
           setShowCreatePostForm(!showCreatePostForm);
-          // if (showCreatePostForm) window.scrollTo(0, 0);
         }}
       >
         {showCreatePostForm ? (

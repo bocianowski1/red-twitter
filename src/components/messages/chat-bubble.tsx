@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import { useEffect } from "react";
 
 const ChatBubble = ({
   userId,
@@ -10,11 +9,6 @@ const ChatBubble = ({
 }) => {
   const { data } = useSession();
   const user = data?.user;
-
-  useEffect(() => {
-    console.log("user id", userId);
-    console.log("test user id", user?.id);
-  }, []);
 
   return (
     <>

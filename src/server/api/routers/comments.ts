@@ -13,7 +13,8 @@ export const commentsRouter = createTRPCRouter({
     .mutation(({ input, ctx }) => {
       const comment = ctx.prisma.comment.create({
         data: {
-          ...input,
+          postId: input.postId,
+          message: input.message,
           userId: ctx.session.user.id,
         },
       });

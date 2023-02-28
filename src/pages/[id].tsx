@@ -8,9 +8,15 @@ import Header from "~/components/layout/header";
 import Loading from "~/components/utils/loading";
 import ProfileImage from "~/components/utils/profile-image";
 import { api } from "~/utils/api";
+import { GetServerSideProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 
-export const getServerSideProps = (context) => {
-  const id = context.params.id;
+interface Params extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const { id } = params as Params;
 
   return {
     props: {
@@ -168,7 +174,7 @@ const PostDetails = ({ id }: { id: string }) => {
           <Loading />
         </div>
       )}
-      <BottomTabs />
+      <BottomTabs activeSection="feed" />
     </>
   );
 };

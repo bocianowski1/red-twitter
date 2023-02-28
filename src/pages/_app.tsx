@@ -6,7 +6,6 @@ import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
 import { AnimatePresence } from "framer-motion";
-import SiteContext from "~/context/site-context";
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,13 +13,11 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
-      {/* <SiteContext> */}
       <AnimatePresence>
         <main className="md:mx-48 lg:mx-72">
           <Component {...pageProps} />
         </main>
       </AnimatePresence>
-      {/* </SiteContext> */}
     </SessionProvider>
   );
 };
