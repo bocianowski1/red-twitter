@@ -62,7 +62,7 @@ const CreatePost = ({
               <h2 className="font-bold">{user?.name}</h2>
               <h4 className="text-xs font-thin text-gray-500">{user?.email}</h4>
 
-              <div className=" flex w-full items-center gap-4 py-4">
+              <div className="flex w-full items-center gap-4 py-4">
                 <textarea
                   required
                   autoFocus
@@ -71,7 +71,7 @@ const CreatePost = ({
                   maxLength={140}
                   onChange={(e) => setCaption(e.target.value)}
                   className="flex w-64 resize-none overflow-scroll rounded-md 
-                border border-black/50 px-2 py-1 text-sm ring-0"
+                border border-black/20 px-2 py-1 text-sm ring-0"
                 />
                 <button type="submit">
                   <FaPaperPlane />

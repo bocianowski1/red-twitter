@@ -2,7 +2,6 @@ import { Post, Comment } from "@prisma/client";
 import React, { useState } from "react";
 import { api } from "../../utils/api";
 import { useSession } from "next-auth/react";
-import EditPostForm from "./edit-post";
 import {
   FaPen,
   FaTrash,
@@ -10,10 +9,8 @@ import {
   FaComment,
   FaPeopleArrows,
 } from "react-icons/fa";
-import CommentCard from "../comments/comment";
 import ProfileImage from "../utils/profile-image";
 import Link from "next/link";
-import CommentForm from "../comments/comment-form";
 
 interface Props {
   post: Post;
@@ -23,7 +20,6 @@ interface Props {
 const PostCard = ({ post, refetchPosts }: Props) => {
   const [isLiked, setIsLiked] = useState(false);
   const [showComments, setShowComments] = useState(false);
-  const [message, setMessage] = useState("");
 
   const incrementLikes = api.posts.incrementLikeCount.useMutation();
   const deletePost = api.posts.deletePost.useMutation({
@@ -32,18 +28,11 @@ const PostCard = ({ post, refetchPosts }: Props) => {
     },
   });
 
-  const { id, title, caption, likes, createdAt } = post;
+  const { id, caption, likes, createdAt } = post;
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
 
-  const { data: comments, refetch: refetchComments } =
-    api.comments.getAll.useQuery({
-      postId: id,
-    });
-
-  const commentOnPost = api.comments.comment.useMutation({
-    onSuccess: () => {
-      void refetchComments();
-    },
+  const { data: comments } = api.comments.getAll.useQuery({
+    postId: id,
   });
 
   const deleteCommentsOnPost =
@@ -72,7 +61,7 @@ const PostCard = ({ post, refetchPosts }: Props) => {
               </Link>
             </div>
             <span className="flex justify-end py-2 text-xs font-thin">
-              {createdAt.toISOString().split("T")[0]}
+              {createdAt.toUTCString()}
             </span>
           </div>
 
@@ -119,17 +108,7 @@ const PostCard = ({ post, refetchPosts }: Props) => {
             </button>
           </div>
         </div>
-        {comments && comments.length > 0 && (
-          <div>
-            {comments.map((comment: Comment) => (
-              <CommentCard comment={comment} />
-            ))}
-          </div>
-        )}
       </div>
-      {/* <form>
-        <CommentForm />
-      </form> */}
     </>
   );
 };

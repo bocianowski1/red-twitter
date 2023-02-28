@@ -1,8 +1,12 @@
 import { Message } from "@prisma/client";
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { FaPaperPlane, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
+import ChatBubble from "~/components/messages/chat-bubble";
+import ProfileImage from "~/components/utils/profile-image";
+import { useSiteContext } from "~/context/site-context";
 import { api } from "~/utils/api";
 
 const DirectMessages = () => {
@@ -21,17 +25,24 @@ const DirectMessages = () => {
   });
 
   const { data } = useSession();
+  const user = data?.user;
+
+  const { setActiveSection } = useSiteContext();
+
+  useEffect(() => {
+    setActiveSection("messages");
+  }, []);
 
   return (
     <>
       <Header showStories={false} />
-      <div className="flex h-screen flex-col items-center justify-center bg-gray-200">
-        <h1>Messages</h1>
-        <div>
+      <div className="flex h-screen flex-col items-center justify-end pb-28">
+        <div className="w-2/3">
           {dms &&
             dms.map((dm: Message) => (
-              <div key={dm.id} className="flex w-40 justify-between">
-                <h3>{dm.message}</h3>
+              <div key={dm.id} className="">
+                <ChatBubble userId={user?.id ?? ""} message={dm.message} />
+                <ChatBubble userId={"test"} message={"test"} />
                 <button
                   onClick={() =>
                     deleteMessage.mutate({
@@ -39,7 +50,7 @@ const DirectMessages = () => {
                     })
                   }
                 >
-                  delete
+                  <FaTrash />
                 </button>
               </div>
             ))}
@@ -50,17 +61,24 @@ const DirectMessages = () => {
             e.preventDefault();
             sendMessage.mutate({
               message,
-              userId: data?.user.id ?? "",
+              userId: user?.id ?? "",
             });
             setMessage("");
           }}
+          className="flex items-center gap-4 py-4"
         >
+          <ProfileImage size={2.25} image={user?.image ?? ""} hasRing={false} />
           <input
-            type="text"
+            required
             value={message}
+            maxLength={70}
             onChange={(e) => setMessage(e.target.value)}
+            className="flex w-64 resize-none overflow-scroll rounded-md 
+                            border border-black/20 px-2 py-1 text-sm ring-0"
           />
-          <button type="submit">send</button>
+          <button type="submit">
+            <FaPaperPlane />
+          </button>
         </form>
         {data && <BottomTabs />}
       </div>

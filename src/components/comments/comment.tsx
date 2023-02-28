@@ -9,14 +9,13 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
   const getUser = api.users.getUser.useQuery({
     userId,
   });
-  // const { name, image, email } = getUser.data!;
   const user = getUser.data;
 
   const [isLiked, setIsLiked] = useState(false);
   const [numberOfLikes, setNumberOfLikes] = useState(likes);
 
   return (
-    <div className="my-4 rounded-md bg-white/10 px-4 py-2">
+    <div className="bg-black/5 px-4 py-2 hover:bg-black/10">
       <div className="flex items-center gap-4">
         <div className="h-6 w-6">
           <img
@@ -43,9 +42,7 @@ const CommentCard = ({ comment }: { comment: Comment }) => {
           <FaHeart className={`${isLiked && "text-rose-400"}`} />
           <span className="text-sm font-thin">{numberOfLikes}</span>
         </button>
-        <span className="text-xs font-thin">
-          {createdAt.toISOString().split("T")[0]}
-        </span>
+        <span className="text-xs font-thin">{createdAt.toUTCString()}</span>
       </div>
     </div>
   );

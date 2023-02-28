@@ -16,11 +16,11 @@ const BottomTabs = () => {
         <Link href={"/"}>
           <li
             onClick={() => {
-              setActiveSection("home");
+              setActiveSection("feed");
               if (showProfile) setShowProfile(false);
             }}
             className={`${
-              activeSection === "home" && "text-rose-600"
+              activeSection === "feed" && "text-rose-600"
             } hover:cursor-pointer`}
           >
             <FaHome />

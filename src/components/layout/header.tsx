@@ -4,19 +4,31 @@ import Link from "next/link";
 import ProfileImage from "../utils/profile-image";
 import { api } from "~/utils/api";
 
-const Header = ({ showStories }: { showStories: boolean }) => {
+const Header = ({
+  posts,
+  showStories,
+}: {
+  posts?: Post[];
+  showStories: boolean;
+}) => {
   return (
     <div className="fixed top-0 left-0 z-20">
-      <Navbar />
-      {showStories && <Stories />}
+      <Navbar border={!showStories} />
+      {/* {showStories && posts && <Stories posts={posts} />} */}
     </div>
   );
 };
-const Navbar = () => {
+const Navbar = ({ border }: { border: boolean }) => {
   return (
-    <nav className="fixed top-0 flex h-16 w-full items-center justify-between bg-gray-50 p-4 text-gray-800">
+    <nav
+      className={`fixed top-0 flex h-16 w-full items-center justify-between 
+    ${border && "border-b border-black/20"} bg-gray-50 p-4 text-gray-800`}
+    >
       <Link href={"/"}>
-        <h1 className="mx-2 text-2xl font-thin">twitter</h1>
+        <h1 className="mx-2 text-2xl font-thin">
+          <span className="text-rose-500">red</span>
+          twitter
+        </h1>
       </Link>
     </nav>
   );

@@ -1,10 +1,9 @@
 import { Comment, Post } from "@prisma/client";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
-import { FaComment, FaPen, FaTrash } from "react-icons/fa";
+import { useState } from "react";
+import { FaComment, FaPaperPlane, FaPen, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import CommentCard from "~/components/comments/comment";
-import CommentForm from "~/components/comments/comment-form";
 import EditPostForm from "~/components/posts/edit-post";
 import Header from "~/components/layout/header";
 import Loading from "~/components/utils/loading";
@@ -41,6 +40,13 @@ const PostDetails = ({ id }: { id: string }) => {
     },
   });
 
+  const deleteAllCommentsOnPost =
+    api.comments.deleteAllCommentsOnPost.useMutation({
+      onSuccess: () => {
+        void refetchComments();
+      },
+    });
+
   const deletePost = api.posts.deletePost.useMutation({
     onSuccess: () => {
       router.push("/");
@@ -49,38 +55,42 @@ const PostDetails = ({ id }: { id: string }) => {
 
   const router = useRouter();
   const [edit, setEdit] = useState(false);
-  const [showCommentForm, setShowCommentForm] = useState(false);
+  const [showCommentForm, setShowCommentForm] = useState(true);
   const [comment, setComment] = useState("");
 
-  // const { id: postId, title, caption, likes, createdAt } = post;
   return (
     <>
       <Header showStories={false} />
       {post ? (
-        <main className="flex h-screen w-screen flex-col items-center bg-red-200">
-          <section className="mt-16 w-screen bg-yellow-200 px-4">
-            <div className="flex bg-green-200">
-              <ProfileImage size={3} image={post.image ?? ""} hasRing={false} />
+        <main className="flex h-screen w-screen flex-col items-center overflow-hidden">
+          <section className="mt-16 w-screen p-4">
+            <div className="flex gap-4">
+              <ProfileImage size={3} image={user?.image ?? ""} hasRing />
               <div>
-                <h1>{user && user.name}</h1>
-                <h3>{user && user.email}</h3>
+                <h1 className="text-xl font-bold">{user && user.name}</h1>
+                <h3 className="text-sm font-thin">{user && user.email}</h3>
               </div>
             </div>
             <div>
-              <p className="bg-blue-200">{post.caption}</p>
+              <p className="mt-4 pb-4">{post.caption}</p>
               <div>
-                <span>{post.createdAt.toUTCString()}</span>
+                <span className="text-xs font-thin">
+                  {post.createdAt.toUTCString()}
+                </span>
               </div>
             </div>
-            <div className="flex px-2">
-              <button
-                onClick={() => {
-                  setShowCommentForm(!showCommentForm);
-                }}
-                className="flex-1"
-              >
-                <FaComment />
-              </button>
+            <div className="mt-2 flex items-center border-y-[0.5px] border-black/20 px-2 py-1">
+              <div className="flex-1">
+                <button
+                  onClick={() => {
+                    setShowCommentForm(!showCommentForm);
+                  }}
+                  className="flex items-center gap-2 font-thin"
+                >
+                  <FaComment />
+                  <span className="text-sm">{allCommentsOnPost?.length}</span>
+                </button>
+              </div>
               <button
                 onClick={() => setEdit(!edit)}
                 className="rounded-full p-2 hover:bg-black/10"
@@ -89,28 +99,67 @@ const PostDetails = ({ id }: { id: string }) => {
               </button>
               <button
                 onClick={() => {
-                  const confirmDelete = confirm();
-                  `Are you sure you want to delete this?`;
-                  if (confirmDelete) {
-                    // deleteCommentsOnPost.mutate({
-                    //   postId: id,
-                    // });
-                    deletePost.mutate({
-                      id,
-                    });
-                  }
+                  deletePost.mutate({
+                    id: post.id,
+                  });
                 }}
                 className="rounded-full p-2 hover:bg-black/10"
               >
                 <FaTrash />
               </button>
             </div>
-            {showCommentForm && <CommentForm />}
+            {showCommentForm && (
+              <div className="flex flex-col items-start">
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    addComment.mutate({
+                      postId: post.id,
+                      message: comment,
+                    });
+                    setComment("");
+                  }}
+                  className="flex items-center gap-4 py-4"
+                >
+                  <ProfileImage
+                    size={2.25}
+                    image={user?.image ?? ""}
+                    hasRing={false}
+                  />
+                  <textarea
+                    required
+                    value={comment}
+                    maxLength={70}
+                    onChange={(e) => setComment(e.target.value)}
+                    className="flex w-64 resize-none overflow-scroll rounded-md 
+                            border border-black/20 px-2 py-1 text-sm ring-0"
+                  />
+                  <button type="submit">
+                    <FaPaperPlane />
+                  </button>
+                </form>
+                {allCommentsOnPost && allCommentsOnPost.length > 0 && (
+                  <button
+                    onClick={() => {
+                      deleteAllCommentsOnPost.mutate({
+                        postId: post.id,
+                      });
+                    }}
+                    className="rounded-xl border-[0.5px] border-rose-600 bg-black/5 px-4 py-2 font-thin
+                            transition-all hover:bg-rose-600 hover:text-white"
+                  >
+                    Delete all comments
+                  </button>
+                )}
+              </div>
+            )}
             {allCommentsOnPost && allCommentsOnPost.length > 0 && (
-              <div>
-                {allCommentsOnPost.map((comment: Comment) => (
-                  <CommentCard comment={comment} />
-                ))}
+              <div className="h-1/2 overflow-scroll">
+                <div className="mt-4 mb-12 flex h-fit flex-col gap-2">
+                  {allCommentsOnPost.map((comment: Comment) => (
+                    <CommentCard key={comment.id} comment={comment} />
+                  ))}
+                </div>
               </div>
             )}
           </section>
@@ -121,46 +170,6 @@ const PostDetails = ({ id }: { id: string }) => {
         </div>
       )}
       <BottomTabs />
-      {/* <div>
-        <div className="flex-1">
-          <button
-            onClick={() => setEdit(!edit)}
-            className="rounded-full p-2 hover:bg-black/10"
-          >
-            <FaPen />
-          </button>
-          <button
-            onClick={() => {
-              const confirmDelete = confirm();
-              `Are you sure you want to delete this?`
-              if (confirmDelete) {
-                // deleteCommentsOnPost.mutate({
-                //   postId: id,
-                // });
-                deletePost.mutate({
-                  id,
-                });
-              }
-            }}
-            className="rounded-full p-2 hover:bg-black/10"
-          >
-            <FaTrash />
-          </button>
-        </div>
-      </div>
-      <div>
-        {edit && (
-          <div className="relative">
-            <button
-              className="absolute top-0 right-0 p-4"
-              onClick={() => setEdit(false)}
-            >
-              X
-            </button>
-            <EditPostForm refetchPosts={refetchPosts} post={post} /> 
-          </div>
-        )}
-      </div> */}
     </>
   );
 };
