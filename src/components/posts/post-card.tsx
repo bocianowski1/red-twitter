@@ -44,7 +44,7 @@ const PostCard = ({
                   transition-all hover:bg-black/10"
       >
         <div className="mt-1 w-12">
-          <ProfileImage size={3} image={user?.image ?? ""} hasRing={true} />
+          <ProfileImage size={3} image={user?.image ?? ""} hasRing />
         </div>
         <div className="mr-8 flex w-full flex-col justify-between">
           <div className="flex items-start justify-between">
