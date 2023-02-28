@@ -8,15 +8,14 @@ import Header from "~/components/layout/header";
 import Loading from "~/components/utils/loading";
 import ProfileImage from "~/components/utils/profile-image";
 import { api } from "~/utils/api";
-import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 
-interface Params extends ParsedUrlQuery {
-  slug: string;
-}
+// interface Params extends ParsedUrlQuery {
+//   slug: string;
+// }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = (await params) as Params;
+export const getServerSideProps = ({ params }: { params: ParsedUrlQuery }) => {
+  const { id } = params;
 
   return {
     props: {
