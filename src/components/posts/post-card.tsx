@@ -86,16 +86,22 @@ const PostCard = ({
             </button>
             <button
               onClick={() => {
-                const confirmDelete = confirm(
-                  `Are you sure you want to delete this?`
-                );
-                if (confirmDelete) {
-                  deleteCommentsOnPost.mutate({
-                    postId: id,
-                  });
-                  deletePost.mutate({
-                    id,
-                  });
+                if (post.userId === user?.id) {
+                  const confirmDelete = confirm(
+                    `Are you sure you want to delete this?`
+                  );
+                  if (confirmDelete) {
+                    deleteCommentsOnPost.mutate({
+                      postId: id,
+                    });
+                    deletePost.mutate({
+                      id,
+                    });
+                  }
+                } else {
+                  alert(
+                    "You are not the owner of this post and cannot delete it"
+                  );
                 }
               }}
             >

@@ -18,6 +18,25 @@ export const postsRouter = createTRPCRouter({
       return post;
     }),
 
+  getPostByContent: protectedProcedure
+    .input(
+      z.object({
+        searchTerm: z.string(),
+      })
+    )
+    .query(({ input, ctx }) => {
+      return ctx.prisma.post.findMany({
+        where: {
+          caption: {
+            contains: input.searchTerm,
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      });
+    }),
+
   createPost: protectedProcedure
     .input(
       z.object({
