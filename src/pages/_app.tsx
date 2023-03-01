@@ -14,7 +14,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session}>
       <AnimatePresence>
-        <main className="md:mx-48 lg:mx-72">
+        <main className="">
           <Component {...pageProps} />
         </main>
       </AnimatePresence>

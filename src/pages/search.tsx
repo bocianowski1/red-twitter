@@ -26,7 +26,7 @@ const Search = () => {
     <>
       <Header showStories={false} />
 
-      <main className="flex h-screen flex-col items-center justify-start gap-8 py-20 text-gray-800">
+      <main className="flex h-screen flex-col items-center justify-start gap-8 py-2 text-gray-800">
         <h1>Look up users and posts</h1>
         <section className="grid grid-cols-2">
           <div>

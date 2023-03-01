@@ -33,8 +33,12 @@ const PostCard = ({
   const deleteCommentsOnPost =
     api.comments.deleteAllCommentsOnPost.useMutation();
 
+  const user = api.users.getUser.useQuery({
+    userId: post.userId,
+  }).data;
+
   const { data } = useSession();
-  const user = data?.user;
+  const activeUser = data?.user;
 
   return (
     <>
@@ -86,7 +90,7 @@ const PostCard = ({
             </button>
             <button
               onClick={() => {
-                if (post.userId === user?.id) {
+                if (post.userId === activeUser?.id) {
                   const confirmDelete = confirm(
                     `Are you sure you want to delete this?`
                   );

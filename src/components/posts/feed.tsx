@@ -50,7 +50,7 @@ const Feed = () => {
         )}
         {posts ? (
           posts?.length > 0 ? (
-            <section className="flex flex-col">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((post: Post) => (
                 <PostCard
                   key={post.id}
