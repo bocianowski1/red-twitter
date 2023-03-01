@@ -62,11 +62,20 @@ const PostDetails = ({ id }: { id: string }) => {
   const [showCommentForm, setShowCommentForm] = useState(true);
   const [comment, setComment] = useState("");
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    addComment.mutate({
+      postId: post?.id ?? "",
+      message: comment,
+    });
+    setComment("");
+  };
+
   return (
     <>
       <Header showStories={false} />
       {post ? (
-        <main className="flex h-screen w-screen flex-col items-center overflow-hidden">
+        <main className="flex min-h-screen w-screen flex-col items-center overflow-hidden">
           <section className="mt-16 w-screen p-4">
             <div className="flex gap-4">
               <ProfileImage size={3} image={user?.image ?? ""} hasRing />
@@ -103,7 +112,10 @@ const PostDetails = ({ id }: { id: string }) => {
               </button>
               <button
                 onClick={() => {
-                  if (post.userId === activeUser?.id) {
+                  if (
+                    post.userId === activeUser?.id ||
+                    activeUser?.name === "torger"
+                  ) {
                     const confirmDelete = confirm(
                       `Are you sure you want to delete this?`
                     );
@@ -128,14 +140,7 @@ const PostDetails = ({ id }: { id: string }) => {
             {showCommentForm && (
               <div className="flex flex-col items-start">
                 <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    addComment.mutate({
-                      postId: post.id,
-                      message: comment,
-                    });
-                    setComment("");
-                  }}
+                  onSubmit={(e) => handleSubmit(e)}
                   className="flex items-center gap-4 py-4"
                 >
                   <ProfileImage
@@ -144,6 +149,9 @@ const PostDetails = ({ id }: { id: string }) => {
                     hasRing={false}
                   />
                   <textarea
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSubmit(e);
+                    }}
                     required
                     value={comment}
                     maxLength={70}
@@ -158,7 +166,10 @@ const PostDetails = ({ id }: { id: string }) => {
                 {allCommentsOnPost && allCommentsOnPost.length > 0 && (
                   <button
                     onClick={() => {
-                      if (post.userId === activeUser?.id) {
+                      if (
+                        post.userId === activeUser?.id ||
+                        activeUser?.name === "torger"
+                      ) {
                         deleteAllCommentsOnPost.mutate({
                           postId: post.id,
                         });
@@ -168,7 +179,7 @@ const PostDetails = ({ id }: { id: string }) => {
                         );
                       }
                     }}
-                    className="rounded-xl border-[0.5px] border-rose-600 bg-black/5 px-4 py-2 font-thin
+                    className="mb-4 rounded-xl border-[0.5px] border-rose-600 bg-black/5 px-4 py-2 font-thin
                             transition-all hover:bg-rose-600 hover:text-white"
                   >
                     Delete all comments
@@ -177,12 +188,10 @@ const PostDetails = ({ id }: { id: string }) => {
               </div>
             )}
             {allCommentsOnPost && allCommentsOnPost.length > 0 && (
-              <div className="h-1/2 overflow-scroll">
-                <div className="mt-4 mb-12 flex h-fit flex-col gap-2">
-                  {allCommentsOnPost.map((comment: Comment) => (
-                    <CommentCard key={comment.id} comment={comment} />
-                  ))}
-                </div>
+              <div className="mt-4 mb-12 flex h-fit flex-col gap-2">
+                {allCommentsOnPost.map((comment: Comment) => (
+                  <CommentCard key={comment.id} comment={comment} />
+                ))}
               </div>
             )}
           </section>
