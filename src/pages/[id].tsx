@@ -9,10 +9,7 @@ import Loading from "~/components/utils/loading";
 import ProfileImage from "~/components/utils/profile-image";
 import { api } from "~/utils/api";
 import { ParsedUrlQuery } from "querystring";
-
-// interface Params extends ParsedUrlQuery {
-//   slug: string;
-// }
+import { useSession } from "next-auth/react";
 
 export const getServerSideProps = ({ params }: { params: ParsedUrlQuery }) => {
   const { id } = params;
@@ -32,6 +29,9 @@ const PostDetails = ({ id }: { id: string }) => {
   const user = api.users.getUser.useQuery({
     userId: post?.userId ?? "",
   }).data;
+
+  const { data } = useSession();
+  const activeUser = data?.user;
 
   const { data: allCommentsOnPost, refetch: refetchComments } =
     api.comments.getAll.useQuery({
@@ -103,11 +103,24 @@ const PostDetails = ({ id }: { id: string }) => {
               </button>
               <button
                 onClick={() => {
-                  deletePost.mutate({
-                    id: post.id,
-                  });
+                  if (post.userId === activeUser?.id) {
+                    const confirmDelete = confirm(
+                      `Are you sure you want to delete this?`
+                    );
+                    if (confirmDelete) {
+                      deleteAllCommentsOnPost.mutate({
+                        postId: id,
+                      });
+                      deletePost.mutate({
+                        id,
+                      });
+                    }
+                  } else {
+                    alert(
+                      "You are not the owner of this post and cannot delete it"
+                    );
+                  }
                 }}
-                className="rounded-full p-2 hover:bg-black/10"
               >
                 <FaTrash />
               </button>

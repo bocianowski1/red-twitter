@@ -65,13 +65,10 @@ const PostCard = ({
           </div>
 
           <div className="mr-2 flex justify-between py-2 text-black/60">
-            <button
-              onClick={() => setShowComments(!showComments)}
-              className="flex items-center gap-2"
-            >
+            <Link href={`/${id}`} className="flex items-center gap-2">
               <FaComment />
               <span className="text-sm font-thin">{comments?.length}</span>
-            </button>
+            </Link>
             <button
               className="flex items-center gap-2"
               onClick={() => {
