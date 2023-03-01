@@ -140,7 +140,7 @@ const PostDetails = ({ id }: { id: string }) => {
                 >
                   <ProfileImage
                     size={2.25}
-                    image={user?.image ?? ""}
+                    image={activeUser?.image ?? ""}
                     hasRing={false}
                   />
                   <textarea
@@ -158,9 +158,15 @@ const PostDetails = ({ id }: { id: string }) => {
                 {allCommentsOnPost && allCommentsOnPost.length > 0 && (
                   <button
                     onClick={() => {
-                      deleteAllCommentsOnPost.mutate({
-                        postId: post.id,
-                      });
+                      if (post.userId === activeUser?.id) {
+                        deleteAllCommentsOnPost.mutate({
+                          postId: post.id,
+                        });
+                      } else {
+                        alert(
+                          "You are not the owner of this post and cannot delete it"
+                        );
+                      }
                     }}
                     className="rounded-xl border-[0.5px] border-rose-600 bg-black/5 px-4 py-2 font-thin
                             transition-all hover:bg-rose-600 hover:text-white"

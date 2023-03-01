@@ -71,9 +71,11 @@ const CreatePost = ({
 
               <div className="flex w-full items-center gap-4 py-4">
                 <textarea
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") handleSubmit(e);
+                  }}
                   required
                   autoFocus
-                  // placeholder="What's on your mind?"
                   value={caption}
                   maxLength={140}
                   onChange={(e) => setCaption(e.target.value)}

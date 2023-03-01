@@ -1,6 +1,7 @@
 import { type Message } from "@prisma/client";
+import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { FaPaperPlane, FaTrash } from "react-icons/fa";
 import BottomTabs from "~/components/layout/bottom-tabs";
 import Header from "~/components/layout/header";
@@ -26,42 +27,54 @@ const DirectMessages = () => {
   const { data } = useSession();
   const user = data?.user;
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    sendMessage.mutate({
+      message,
+      userId: user?.id ?? "",
+    });
+    setMessage("");
+  };
+
   return (
     <>
       <Header showStories={false} />
       <div className="flex h-screen flex-col items-center justify-end pb-12">
-        <div className="my-4 w-2/3">
-          {dms &&
-            dms.map((dm: Message) => (
-              <div key={dm.id} className="">
-                <ChatBubble userId={user?.id ?? ""} message={dm.message} />
-                <ChatBubble userId={"test"} message={"test"} />
-                <button
-                  onClick={() =>
-                    deleteMessage.mutate({
-                      id: dm.id,
-                    })
-                  }
+        <div className="flex h-4/5 w-full flex-col-reverse overflow-scroll">
+          <div className="mb-8 mt-16 px-16">
+            {dms &&
+              dms.map((dm: Message) => (
+                <motion.div
+                  initial={{ y: "100%" }}
+                  animate={{ y: "0%" }}
+                  transition={{ duration: 0.25 }}
+                  key={dm.id}
                 >
-                  <FaTrash />
-                </button>
-              </div>
-            ))}
+                  <ChatBubble userId={user?.id ?? ""} message={dm.message} />
+                  <ChatBubble userId={"test"} message={"test"} />
+                  <button
+                    onClick={() =>
+                      deleteMessage.mutate({
+                        id: dm.id,
+                      })
+                    }
+                  >
+                    <FaTrash />
+                  </button>
+                </motion.div>
+              ))}
+          </div>
         </div>
 
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            sendMessage.mutate({
-              message,
-              userId: user?.id ?? "",
-            });
-            setMessage("");
-          }}
+          onSubmit={(e) => handleSubmit(e)}
           className="flex w-screen items-center justify-center gap-4 border-t-[0.5px] border-black/20 bg-gray-50 py-8"
         >
           <ProfileImage size={2.25} image={user?.image ?? ""} hasRing={false} />
           <textarea
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSubmit(e);
+            }}
             required
             value={message}
             maxLength={70}
